@@ -10,24 +10,40 @@ namespace Lab3V20CsharpConsole
     {
         static void Main(string[] args)
         {
-            const int size = 3;
+            const int SIZE = 3;
 
-            // intializing the matrix
-            Matrix myMatrix = new Matrix(new int[size, size] { { 2, 3, 4 }, { 1, -2, 0 }, { 0, 1, 2 } }, new int[size, size] { { 2, 0, -2 }, { 1, 1, 0 }, { 1, -1, 1 } });
-            //Matrix myMatrix = new Matrix(new int[size, size] { { 1, 0, 0 }, { 0, 1, 0 }, { 0, 0, 1 } }, new int[size, size] { { 1, 0, 0 }, { 0, 1, 0 }, { 0, 0, 1 } });
+            // My custom matrix
+            //int[,] A = new int[SIZE, SIZE] { { 2, 3, 4 }, { 1, -2, 0 }, { 0, 1, 2 } };
+            //int[,] B = new int[SIZE, SIZE] { { 2, 0, -2 }, { 1, 1, 0 }, { 1, -1, 1 } };
+
+            //fill the table with random data
+            Random rdm = new Random();
+            int[,] A = new int[SIZE, SIZE];
+            int[,] B = new int[SIZE, SIZE];
+            for (int i = 0; i < SIZE; i++)
+            {
+                for (int j = 0; j < SIZE; j++)
+                {
+                    A[i, j] = rdm.Next(-1, 1);
+                    B[i, j] = rdm.Next(-1, 1);
+                }
+            }
+
+            // Create a matrix instance
+            Matrix myMatrix = new Matrix(A,B);
 
             //Printing the matrix content
             myMatrix.PrintMatrix(myMatrix.MatrixA, "A");
             Console.WriteLine("\n");
             myMatrix.PrintMatrix(myMatrix.MatrixB,"B");
 
-            //Printing the MatrixX
+            //Printing the MatrixX after computing :X=2*A*(A+B)-3*A
             Console.WriteLine("\n");
             var matrixX = myMatrix.CalculateMatrixX();
             myMatrix.PrintMatrix(matrixX, "X=2*A*(A+B)-3*A");
 
             Console.WriteLine("\n");
-            // Computing and print the reverse matrixe
+            // Computing and printing the reverse matrix of matrix X
             var Reversematrix = myMatrix.ReverserMatrix(myMatrix.CalculateMatrixX());
             //Printing
             myMatrix.PrintMatrix(Reversematrix, "Reverse X");
